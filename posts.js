@@ -33,3 +33,14 @@ const agregarLikes = async (payload) => {
       throw new Error(e)
     }
   }
+
+  const obtenerLikes = async () => {
+    try {
+        const { rows } = await pool.query("SELECT * FROM posts")
+        console.log(rows)
+        return rows
+    } catch (e) {
+        console.log(e)
+        console.log('error al cargar los datos de la tabla posts: ', e.code, e.message)
+        throw new Error(e)
+    }}
