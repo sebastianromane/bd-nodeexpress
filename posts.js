@@ -44,3 +44,14 @@ const agregarLikes = async (payload) => {
         console.log('error al cargar los datos de la tabla posts: ', e.code, e.message)
         throw new Error(e)
     }}
+
+    const duplicatePost = async (payload) => {
+        const SQLquery = {
+          text: 'SELECT COUNT(*) as NUM FROM posts WHERE titulo=$1 AND img=$2 AND descripcion=$3',
+          values: [payload.titulo, payload.url, payload.descripcion],
+        }
+        const { rows } = await pool.query(SQLquery)
+        return rows
+      }
+      
+      module.exports = { agregarLikes, obtenerLikes, duplicatePost }
